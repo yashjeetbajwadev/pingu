@@ -68,7 +68,7 @@ try
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
     {
-        var connectionString = builder.Configuration.GetConnectionString("Application");
+        var connectionString = Helper.GetEnvironmentVariable("PINGU_DB_CONNECTION_STRING");
         options.UseSqlServer(connectionString, sqlOptions => sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.GetName().Name));
     });
 
@@ -134,7 +134,8 @@ try
         .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
         {
             options.SignInScheme = IdentityConstants.ExternalScheme;
-            builder.Configuration.GetRequiredSection("OAuth:Google").Bind(options);
+            options.ClientId = Helper.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
+            options.ClientSecret = Helper.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
         });
 
     builder.Services.AddCors(options =>
@@ -191,7 +192,7 @@ try
             Log.Information("Registering Ngrok hosted service as the application is running in development.");
             builder.Services.AddNgrokHostedService(options =>
             {
-                builder.Configuration.GetRequiredSection("Ngrok").Bind(options);
+                options.AuthToken = Helper.GetEnvironmentVariable("NGROK_AUTH_TOKEN");
             });
         }
         else

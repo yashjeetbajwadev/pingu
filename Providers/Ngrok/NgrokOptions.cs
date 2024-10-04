@@ -4,7 +4,7 @@ public class NgrokOptions
 {
     public bool ShowNgrokWindow { get; init; }
 
-    public string AuthToken { get; init; } = null!;
+    public string AuthToken { get; set; } = null!;
 
     public string? Domain { get; init; } = null!;
 }
