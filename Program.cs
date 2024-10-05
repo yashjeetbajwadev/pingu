@@ -192,6 +192,7 @@ try
             Log.Information("Registering Ngrok hosted service as the application is running in development.");
             builder.Services.AddNgrokHostedService(options =>
             {
+                builder.Configuration.GetSection("Ngrok").Bind(options);
                 options.AuthToken = Helper.GetEnvironmentVariable("NGROK_AUTH_TOKEN");
             });
         }
