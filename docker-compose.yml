@@ -1,0 +1,6 @@
+﻿services:
+  pingu:
+    image: pingu
+    build:
+      context: .
+      dockerfile: pingu/Dockerfile

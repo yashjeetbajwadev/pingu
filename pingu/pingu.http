@@ -1,0 +1,6 @@
+@pingu_HostAddress = http://localhost:5068
+
+GET {{pingu_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
